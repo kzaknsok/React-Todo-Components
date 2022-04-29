@@ -161,6 +161,31 @@ import { CompleteTodos } from "./components/CompleteTodos";
  * todoText(初期値の空文字)をtodoTextとしてprops
  * onChangeTodoText(入力値の書き換え)をonChangeとしてprops
  * onClickAdd(追加ボタン)をonClickとしてprops
+ *
+ * 未完了todoが5個まで溜まったら追加出来なるなる機能追加
+ * まずpタグでべた書きメッセージ+styleを当てて表示
+ * ロジックはincompleteTodosとの連動、
+ * {incompleteTodos.length}で格納されている要素数を取得。
+ * lengthに対して　>= 5 として
+ * 要素が5個を迎えたらメッセージ発動の基準点をつくる。
+ * 更に　&& を追加して右辺にメッセージのpタグを入れる。
+ *
+ * {incompleteTodos.length >= 5 && (<p style={{ color: "red" }}>todo溜めるのは５個まで</p>)}
+ *
+ * &&...左辺がtrueの時、右辺もtrue
+ * ５個以上になった(true)だからメッセージを出す(true)
+ *
+ * todoが5個以上で無効化する機能追加
+ * inputTodosにリストが5個溜まったら、
+ * 追加機能を無効化する。
+ *
+ *         disabled={incompleteTodos.length >= 5
+ *
+ * inputTodosに追記した内容、
+ * incompleteTodosの要素数をlengthで取得。
+ * >= 5　5個以上でdisabledがtrueになる設定とする。
+ * これでInputTodo.jsxに書いたdisabled={disabled}の
+ * 機能デフォルトが設定される。
  */
 
 export const App = () => {
@@ -209,7 +234,11 @@ export const App = () => {
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={incompleteTodos.length >= 5}
       />
+      {incompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>todo溜めるのは５個まで</p>
+      )}
       <IncompleteTodos
         todos={incompleteTodos}
         onClickComplete={onClickComplete}
