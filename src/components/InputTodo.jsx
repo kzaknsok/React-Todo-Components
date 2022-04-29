@@ -12,13 +12,27 @@ import React from "react";
  * 入力したらonChangeが動いて情報を書き換える。
  * 追加ボタンで未完了エリアへ表示するonClickAddが動く。
  * 各関数名はpropsで受け取った時点での名称に書き換え。
+ *
+ * todoが5個以上で無効化する機能追加
+ * disabledをpropsに追加
+ * input、buttonタグにdisabled={disabled}を追記
+ * つまりdisabled={disabled}の状態はtrue。
+ * 親コンポーネントでtrue,falseの制御させる。
+ *
  */
 export const InputTodo = (props) => {
-  const { todoText, onChange, onClick } = props;
+  const { todoText, onChange, onClick, disabled } = props;
   return (
     <div className="input-area">
-      <input placeholder="ToDoを入力" value={todoText} onChange={onChange} />
-      <button onClick={onClick}>追加</button>
+      <input
+        disabled={disabled}
+        placeholder="ToDoを入力"
+        value={todoText}
+        onChange={onChange}
+      />
+      <button disabled={disabled} onClick={onClick}>
+        追加
+      </button>
     </div>
   );
 };
